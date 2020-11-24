@@ -1,0 +1,39 @@
+
+
+<div class="container">
+  <div class="form-group">
+    <label for="searchbox">Search: </label>
+    <input type="text" id="searchbox" ng-model="searchText"
+           class="form-control" placeholder="What are we searching for?">
+  </div>
+  {{searchText}}
+  <table class="table table-striped borderless">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">image</th>
+      <th scope="col">abv</th>
+      <th scope="col">ibu</th>
+      <th scope="col">id</th>
+      <th scope="col">name</th>
+      <th scope="col">style</th>
+      <th scope="col">ounces</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let beer of beers_response| paginate: {itemsPerPage: 20,
+                                                      currentPage: p } index as i" >
+      <td scope="row">{{ i+1 }}</td>
+      <td scope="row"><img src="{{beers_images_response[i%5]['image']}}" class="img-thumbnail" style="height:70px"></td>
+      <td scope="row">{{ beer['abv'] }}</td>
+      <td scope="row">{{ beer['ibu'] }}</td>
+      <td scope="row">{{ beer['id'] }}</td>
+      <td scope="row">{{ beer['name'] }}</td>
+      <td scope="row">{{ beer['style'] }}</td>
+      <td scope="row">{{ beer['ounces'] }}</td>
+
+    </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
